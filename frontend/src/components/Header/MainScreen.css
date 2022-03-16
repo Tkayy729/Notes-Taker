@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:wght@300&display=swap');
+
+.mainback{
+    min-height: 93vh;
+    display: flex;
+    padding: 10px 0;
+}
+
+.page{
+    width: 100%;
+}
+
+.heading{
+    font-stretch: 60px;
+    font-family: "work Sans, sans-seif";
+    padding: 5px 10px;
+}
+
+@media only screen and (max-width: 60px){
+    .heading{
+        font-stretch: 30px;
+        display: flex;
+        justify-content: center;
+        
+    }
+}

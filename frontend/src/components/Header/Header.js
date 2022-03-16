@@ -28,12 +28,18 @@ const Header = () => {
           </Nav>
           <Nav>
             <Nav.Link>
-              <Link to="/mynotes">My Notes</Link>
+              <Link to="/note">My Notes</Link>
             </Nav.Link>
             <NavDropdown title="Emmanuel" id="basic-nav-dropdown">
-              <NavDropdown.Item>My Profile</NavDropdown.Item>
+              <NavDropdown.Item>
+                {" "}
+                <Link to="/profile">Profile</Link>
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item>logout</NavDropdown.Item>
+              <NavDropdown.Item>
+                {" "}
+                <Link to="/logout">logout</Link>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
