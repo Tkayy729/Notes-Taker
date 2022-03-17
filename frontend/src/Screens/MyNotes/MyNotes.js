@@ -1,42 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/Header/MainScreen";
-
-const notes = [
-  {
-    _id: "1",
-    title: "Day 1 of college",
-    content:
-      "I made a few new friends and introduced myself to a lot of new teachers.",
-    category: "College",
-  },
-  {
-    _id: "2",
-    title: "Learned some Node JS",
-    content: "Learned how to create a server in node JS and my first API",
-    category: "Learning",
-  },
-  {
-    _id: "3",
-    title: "Watched some Anime",
-    content: "Finished 2 seasons of Attack on Titan and My Hero academia.",
-    category: "Entertainment",
-  },
-  {
-    _id: 4,
-    title: "Started React JS",
-    content:
-      "Made my first App in React JS, feels awesome to learn something new. I aim to be a full stack dev someday",
-    category: "Learning",
-  },
-];
+import axios from "axios";
 
 const MyNotes = () => {
+  const [notes, setNotes] = useState([]);
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
+
+  const fetchNotes = async () => {
+    const { data } = await axios.get("http://localhost:5000/api/notes");
+
+    setNotes(data);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   return (
     <MainScreen title="Welcome Back Emmanuel ..">
@@ -45,8 +29,8 @@ const MyNotes = () => {
       </Link>
 
       {notes.map((note) => (
-        <Accordion>
-          <Accordion.Item eventKey="0">
+        <Accordion key={note._id}>
+          <Accordion.Item eventkey="1">
             <Card style={{ margin: 10 }}>
               <Card.Header style={{ display: "flex" }}>
                 <span
@@ -59,7 +43,7 @@ const MyNotes = () => {
                     fontSize: 18,
                   }}
                 >
-                  <Accordion.Header as={Card.Text} variant="link" eventKey="0">
+                  <Accordion.Header as={Card.Text} variant="link" eventkey="0">
                     {note.title}
                   </Accordion.Header>{" "}
                 </span>
@@ -77,7 +61,7 @@ const MyNotes = () => {
                 </div>
               </Card.Header>
 
-              <Accordion.Body eventKey="0">
+              <Accordion.Body eventkey="0">
                 <Card.Body>
                   <h4 style={{ color: "white" }}>
                     <Badge bg="success">category - {note.category}</Badge>
