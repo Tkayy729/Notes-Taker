@@ -4,13 +4,17 @@ import Header from "./components/Header/Header";
 import LandingPage from "./Screens/LandingPage/LandingPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNotes from "./Screens/MyNotes/MyNotes";
+import LoginScreen from "./Screens/LoginScreen/LoginScreen";
+import RegisterScreen from "./Screens/RegisterScreen/RegisterScreen";
 
 const App = () => (
   <BrowserRouter>
     <Header />
     <main className="App">
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} exact />
+        <Route path="/login" element={<LoginScreen />} exact />
+        <Route path="/register" element={<RegisterScreen />} exact />
         <Route path="/note" element={<MyNotes />} />
       </Routes>
     </main>

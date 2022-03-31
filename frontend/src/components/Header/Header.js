@@ -30,7 +30,10 @@ const Header = () => {
             <Nav.Link>
               <Link to="/note">My Notes</Link>
             </Nav.Link>
-            <NavDropdown title="Emmanuel" id="basic-nav-dropdown">
+            <NavDropdown
+              title="Emmanuel Tweneboah Koduah"
+              id="basic-nav-dropdown"
+            >
               <NavDropdown.Item>
                 {" "}
                 <Link to="/profile">Profile</Link>

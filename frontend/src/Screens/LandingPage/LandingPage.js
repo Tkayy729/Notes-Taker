@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
 
 const LandingPage = () => {
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+
+  //   if (userInfo) {
+  //     history.push("/notes");
+  //   }
+  // }, [history]);
+
   return (
     <div className="main">
       <Container>
@@ -21,7 +29,7 @@ const LandingPage = () => {
                   Login
                 </Button>
               </Link>
-              <Link to="/signup">
+              <Link to="/register">
                 <Button
                   variant="outline-primary"
                   size="lg"

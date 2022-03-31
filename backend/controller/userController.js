@@ -1,4 +1,5 @@
 const expressAsyncHandler = require("express-async-handler");
+const generatewebToken = require("../../utils/generateToken");
 const User = require("../models/userModel");
 
 const registerUser = expressAsyncHandler(async (req, res) => {
@@ -22,8 +23,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
       pic: user.pic,
+      token: generatewebToken(user._id),
     });
   } else {
     res.status(400);
@@ -41,8 +42,8 @@ const authUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
       pic: user.pic,
+      token: generatewebToken(user._id),
     });
   } else {
     res.status(400);

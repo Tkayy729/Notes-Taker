@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import MainScreen from "../../components/Header/MainScreen";
+import MainScreen from "../../components/sharedComponents/MainScreen/MainScreen";
 import axios from "axios";
 
 const MyNotes = () => {
@@ -32,22 +32,25 @@ const MyNotes = () => {
         <Accordion key={note._id}>
           <Accordion.Item eventkey="1">
             <Card style={{ margin: 10 }}>
-              <Card.Header style={{ display: "flex" }}>
-                <span
+              <Card.Header style={{ display: "flex", borderStyle: "none" }}>
+                <Accordion.Header
                   style={{
+                    outline: "0 !important",
+                    boxShadow: " 0 0 0 0 rgba(0, 0, 0, 0) !important",
                     flex: 1,
                     color: "black",
                     textDecoration: "none",
                     cursor: "pointer",
                     alignSelf: "center",
                     fontSize: 18,
+                    borderStyle: "none",
                   }}
+                  as={Card.Text}
+                  variant="link"
+                  eventkey="0"
                 >
-                  <Accordion.Header as={Card.Text} variant="link" eventkey="0">
-                    {note.title}
-                  </Accordion.Header>{" "}
-                </span>
-
+                  {note.title}
+                </Accordion.Header>{" "}
                 <div>
                   <Button href={`/note/${note._id}`}>Edit</Button>
 
