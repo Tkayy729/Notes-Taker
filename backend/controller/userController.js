@@ -19,13 +19,16 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      pic: user.pic,
-      token: generatewebToken(user._id),
-    });
+    res
+      .status(201)
+      .json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        pic: user.pic,
+        token: generatewebToken(user._id),
+      })
+      .send("Registered successfully");
   } else {
     res.status(400);
     throw new Error("Error Occured!!");

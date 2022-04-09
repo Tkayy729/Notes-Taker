@@ -2,6 +2,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState } from "react";
+import { API_URL } from "../../config/api_url"
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/sharedComponents/MainScreen/MainScreen";
@@ -28,7 +29,7 @@ const LoginScreen = () => {
       };
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        `${API_URL}/users/login`,
         {
           email,
           password,
