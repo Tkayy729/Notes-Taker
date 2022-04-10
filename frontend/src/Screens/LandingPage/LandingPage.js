@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
 const LandingPage = () => {
+  let navigate = useNavigate();
   // useEffect(() => {
   //   const userInfo = localStorage.getItem("userInfo");
 
@@ -25,7 +26,14 @@ const LandingPage = () => {
             <div className="buttonContainer">
               <Link to="/login">
                 {" "}
-                <Button size="lg" className="landingbutton">
+                <Button
+                  onClick={() => {
+                    localStorage.removeItem("userInfo");
+                    navigate("/");
+                  }}
+                  size="lg"
+                  className="landingbutton"
+                >
                   Login
                 </Button>
               </Link>
