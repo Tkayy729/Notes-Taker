@@ -8,7 +8,6 @@ import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./Screens/RegisterScreen/RegisterScreen";
 import store from "./store";
 import { Provider } from "react-redux";
-import history from "./history";
 
 const App = () => (
   <Provider store={store}>

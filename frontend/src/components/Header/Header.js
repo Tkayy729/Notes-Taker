@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Form,
@@ -13,16 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
 
 const Header = () => {
-  let navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    dispatch(logout);
-
-    navigate("/", { replace: true });
+    dispatch(logout());
+    navigate("/");
   };
   return (
     <Navbar bg="primary" expand="lg" variant="dark">

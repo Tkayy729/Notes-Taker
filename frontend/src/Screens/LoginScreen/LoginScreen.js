@@ -19,7 +19,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/notes");
+      navigate("/note");
     }
   });
 
@@ -32,7 +32,6 @@ const LoginScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    navigate("/note", { replace: true });
   };
   return (
     <MainScreen title="LOGIN to your account">
