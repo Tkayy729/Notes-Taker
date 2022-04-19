@@ -1,50 +1,38 @@
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React, { useState } from "react";
-import { API_URL } from "../../config/api_url"
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/sharedComponents/MainScreen/MainScreen";
 import Loading from "../../components/sharedComponents/Loading/Loading";
 import "./LoginScreen.css";
 import ErrorMessage from "../../components/sharedComponents/ErrorMessage/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const notify = () => toast("logged-in successfully");
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/notes");
+    }
+  });
+
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const { loading, error, userInfo } = userLogin;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const config = {
-        Headers: {
-          "content-type": "application/json",
-        },
-      };
-      setLoading(true);
-      const { data } = await axios.post(
-        `${API_URL}/users/login`,
-        {
-          email,
-          password,
-        },
-        config
-      );
-      console.log(data);
-
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
-      notify();
-    } catch (error) {
-      setError(error.response.data.message);
-      setLoading(false);
-    }
+    dispatch(login(email, password));
+    navigate("/note", { replace: true });
   };
   return (
     <MainScreen title="LOGIN to your account">

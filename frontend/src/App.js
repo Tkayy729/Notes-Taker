@@ -7,7 +7,8 @@ import MyNotes from "./Screens/MyNotes/MyNotes";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./Screens/RegisterScreen/RegisterScreen";
 import store from "./store";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
+import history from "./history";
 
 const App = () => (
   <Provider store={store}>
@@ -16,9 +17,9 @@ const App = () => (
       <main className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} exact />
-          <Route path="/login" element={<LoginScreen />} exact />
-          <Route path="/register" element={<RegisterScreen />} exact />
-          <Route path="/note" element={<MyNotes />} />
+          <Route path="login" element={<LoginScreen />} exact />
+          <Route path="register" element={<RegisterScreen />} exact />
+          <Route path="note" element={<MyNotes />} exact />
         </Routes>
       </main>
       <Footer />

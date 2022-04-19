@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import {
   Container,
@@ -8,12 +9,25 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 const Header = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout);
+
+    navigate("/", { replace: true });
+  };
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Tkayy Note Taker</Navbar.Brand>
+        <Navbar.Brand href="/"> Note Taker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="m-auto">
@@ -39,9 +53,8 @@ const Header = () => {
                 <Link to="/profile">Profile</Link>
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item>
-                {" "}
-                <Link to="/logout">logout</Link>
+              <NavDropdown.Item onClick={logoutHandler}>
+                logout
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
