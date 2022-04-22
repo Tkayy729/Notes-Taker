@@ -1,9 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const notes = require("./data/notes");
 var cors = require("cors");
 const ConnectDB = require("./config/db");
 const UserRoute = require("./routes/userRoute");
+const NoteRoute = require("./routes/noteRoute");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 const app = express();
@@ -22,10 +22,10 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("API is running ...");
 });
-app.get("/api/notes", (req, res) => {
-  res.json(notes);
-});
+
 
 app.use("/api/users", UserRoute);
+app.use("/api/notes", NoteRoute);
+
 app.use(notFound);
 app.use(errorHandler);
