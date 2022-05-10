@@ -3,7 +3,7 @@ const generatewebToken = require("../../utils/generateToken");
 const User = require("../models/userModel");
 
 const registerUser = expressAsyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
   if (userExists) {
@@ -15,7 +15,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     name,
     email,
     password,
-    pic,
   });
 
   if (user) {
@@ -25,7 +24,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        pic: user.pic,
         token: generatewebToken(user._id),
       })
       .send("Registered successfully");
