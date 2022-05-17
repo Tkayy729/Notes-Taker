@@ -8,6 +8,9 @@ import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./Screens/RegisterScreen/RegisterScreen";
 import store from "./store";
 import { Provider } from "react-redux";
+import ProfileScreen from "./Screens/ProfileScreen/ProfileScreen";
+import CreateNote from "./Screens/SingleNote/CreateNote";
+import SingleNote from "./Screens/SingleNote/SingleNote"
 
 const App = () => (
   <Provider store={store}>
@@ -16,9 +19,12 @@ const App = () => (
       <main className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} exact />
-          <Route path="login" element={<LoginScreen />} exact />
-          <Route path="register" element={<RegisterScreen />} exact />
-          <Route path="note" element={<MyNotes />} exact />
+          <Route path="/login" element={<LoginScreen />} exact />
+          <Route path="/register" element={<RegisterScreen />} exact />
+          <Route path="/note" element={<MyNotes />} exact />
+          <Route path="/profile" element={<ProfileScreen />} exact />
+          <Route path="/createnote" component={CreateNote} exact/>;
+          <Route path="/note/:id" component={SingleNote} exact/>
         </Routes>
       </main>
       <Footer />

@@ -25,8 +25,8 @@ const LoginScreen = () => {
 
   const dispatch = useDispatch();
 
+  // this useSelector is used to map states to props
   const userLogin = useSelector((state) => state.userLogin);
-
   const { loading, error, userInfo } = userLogin;
 
   const handleSubmit = async (e) => {

@@ -8,6 +8,7 @@ const getNotes = expressAsyncHandler(async (req, res) => {
 
 const createNote = expressAsyncHandler(async (req, res) => {
   const { title, category, content } = req.body;
+
   if (!title || !content || !category) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
@@ -21,7 +22,7 @@ const createNote = expressAsyncHandler(async (req, res) => {
   }
 });
 
-const DeleteNote = asyncHandler(async (req, res) => {
+const DeleteNote = expressAsyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id);
 
   if (note.user.toString() !== req.user._id.toString()) {
@@ -38,7 +39,7 @@ const DeleteNote = asyncHandler(async (req, res) => {
   }
 });
 
-const UpdateNote = asyncHandler(async (req, res) => {
+const UpdateNote = expressAsyncHandler(async (req, res) => {
   const { title, content, category } = req.body;
 
   const note = await Note.findById(req.params.id);

@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   Form,
@@ -8,14 +7,14 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { logout } from "../../actions/userActions";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -23,6 +22,7 @@ const Header = () => {
     dispatch(logout());
     navigate("/");
   };
+
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
@@ -40,22 +40,26 @@ const Header = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link>
-              <Link to="/note">My Notes</Link>
-            </Nav.Link>
-            <NavDropdown
-              title="Emmanuel Tweneboah Koduah"
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item>
-                {" "}
-                <Link to="/profile">Profile</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logoutHandler}>
-                logout
-              </NavDropdown.Item>
-            </NavDropdown>
+            {userInfo ? (
+              <>
+                <Nav.Link to="/note">My Notes</Nav.Link>
+                <NavDropdown
+                  title={`${userInfo.name}`}
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item href="/profile">
+                    My Profile
+                  </NavDropdown.Item>
+
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -14,7 +14,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    password,
+    password
   });
 
   if (user) {
@@ -43,7 +43,6 @@ const authUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      pic: user.pic,
       token: generatewebToken(user._id),
     });
   } else {
@@ -52,4 +51,31 @@ const authUser = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser };
+const updateUserProfile = expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.pic = req.body.pic || user.pic;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      pic: updatedUser.pic,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
+module.exports = { authUser, updateUserProfile, registerUser };
