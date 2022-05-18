@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   Container,
   Form,
@@ -12,7 +13,7 @@ import {  useNavigate } from "react-router-dom";
 
 import { logout } from "../../actions/userActions";
 
-const Header = () => {
+const Header = ({ setSearch }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
@@ -23,21 +24,25 @@ const Header = () => {
     navigate("/");
   };
 
+  useEffect(() => {}, [userInfo]);
+
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
         <Navbar.Brand href={ userInfo ? "/notes" : "/"}> Note Taker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="m-auto">
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-            </Form>
+        <Nav className="m-auto">
+            {userInfo && (
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Form>
+            )}
           </Nav>
           <Nav>
             {userInfo ? (
