@@ -1,16 +1,17 @@
-import React, {useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-
-import ReactMarkdown from "react-markdown";
 import { deleteNoteAction, updateNoteAction } from "../../actions/noteAction";
 import Loading from "../../components/sharedComponents/Loading/Loading";
 import ErrorMessage from "../../components/sharedComponents/ErrorMessage/ErrorMessage";
+import ReactMarkdown from "react-markdown";
 import MainScreen from "../../components/sharedComponents/MainScreen/MainScreen";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-function SingleNote({ match, history }) {
+
+const SingleNote = () => {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
@@ -18,6 +19,7 @@ function SingleNote({ match, history }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {id} = useParams();
 
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
@@ -25,25 +27,26 @@ function SingleNote({ match, history }) {
   const noteDelete = useSelector((state) => state.noteDelete);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
 
+  
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
-
+      dispatch(deleteNoteAction(id));
     }
-    navigate("/note");
+    navigate("/notes");
   };
 
-  // useEffect(() => {
-  //   const fetching = async () => {
-  //     const { data } = await axios.get(`/api/notes/${match.params.id}`);
+  useEffect(() => {
+    const fetching = async () => {
+      const { data } = await axios.get(`/api/notes/${id}`);
 
-  //     setTitle(data.title);
-  //     setContent(data.content);
-  //     setCategory(data.category);
-  //     setDate(data.updatedAt);
-  //   };
+      setTitle(data.title);
+      setContent(data.content);
+      setCategory(data.category);
+      setDate(data.updatedAt);
+    };
 
-  //   fetching();
-  // }, [match.params.id, date]);
+    fetching();
+  }, [id, date]);
 
   const resetHandler = () => {
     setTitle("");
@@ -53,11 +56,11 @@ function SingleNote({ match, history }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateNoteAction(match.params.id, title, content, category));
+    dispatch(updateNoteAction(id, title, content, category));
     if (!title || !content || !category) return;
 
     resetHandler();
-    navigate("/mynotes");
+    navigate("/notes");
   };
 
   return (
@@ -116,7 +119,7 @@ function SingleNote({ match, history }) {
             <Button
               className="mx-2"
               variant="danger"
-              onClick={() => deleteHandler(match.params.id)}
+              onClick={() => deleteHandler(id)}
             >
               Delete Note
             </Button>

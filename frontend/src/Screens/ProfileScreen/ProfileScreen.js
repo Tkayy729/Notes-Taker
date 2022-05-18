@@ -12,7 +12,6 @@ import ErrorMessage from "../../components/sharedComponents/ErrorMessage/ErrorMe
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 

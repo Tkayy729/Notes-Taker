@@ -12,24 +12,25 @@ import ProfileScreen from "./Screens/ProfileScreen/ProfileScreen";
 import CreateNote from "./Screens/SingleNote/CreateNote";
 import SingleNote from "./Screens/SingleNote/SingleNote"
 
-const App = () => (
+const App = () => {
+  return(
   <Provider store={store}>
     <BrowserRouter>
       <Header />
       <main className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} exact />
-          <Route path="/login" element={<LoginScreen />} exact />
-          <Route path="/register" element={<RegisterScreen />} exact />
-          <Route path="/note" element={<MyNotes />} exact />
-          <Route path="/profile" element={<ProfileScreen />} exact />
-          <Route path="/createnote" component={CreateNote} exact/>;
-          <Route path="/note/:id" component={SingleNote} exact/>
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/notes" element={<MyNotes />} />
+          <Route path="/profile" element={<ProfileScreen />}  />
+          <Route path="/createnote" element={<CreateNote />} />;
+          <Route path="/note/:id" element={ <SingleNote/>} />
         </Routes>
       </main>
       <Footer />
     </BrowserRouter>
-  </Provider>
-);
+  </Provider>)
+};
 
 export default App;

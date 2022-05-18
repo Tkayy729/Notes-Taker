@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Card, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ReactMarkdown from "react-markdown";
 
 import MainScreen from "../../components/sharedComponents/MainScreen/MainScreen";
 import ErrorMessage from "../../components/sharedComponents/ErrorMessage/ErrorMessage";
 import Loading from "../../components/sharedComponents/Loading/Loading";
+import { createNoteAction } from "../../actions/noteAction";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateNote() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
@@ -31,14 +36,16 @@ function CreateNote() {
   const submitHandler = (e) => {
     e.preventDefault();
     
+    dispatch(createNoteAction(title, content, category));
     if (!title || !content || !category) return;
 
     resetHandler();
+    navigate("/notes")
  
   };
 
 
-
+  useEffect(() => {}, []);
   return (
     <MainScreen title="Create a Note">
       <Card>

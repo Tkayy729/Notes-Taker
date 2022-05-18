@@ -6,6 +6,16 @@ const getNotes = expressAsyncHandler(async (req, res) => {
   res.json(notes);
 });
 
+const getNoteById = expressAsyncHandler(async (req, res) => {
+  const note = await Note.findById(req.params.id);
+
+  if (note) {
+    res.json(note);
+  } else {
+    res.status(404).json({ message: "Note not found" });
+  }
+});
+
 const createNote = expressAsyncHandler(async (req, res) => {
   const { title, category, content } = req.body;
 
@@ -62,4 +72,4 @@ const UpdateNote = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getNotes, createNote, DeleteNote, UpdateNote };
+module.exports = { getNotes, createNote, DeleteNote, getNoteById , UpdateNote };

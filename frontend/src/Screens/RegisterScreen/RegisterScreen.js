@@ -20,7 +20,7 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/note");
+      navigate("/notes");
     }
   });
 

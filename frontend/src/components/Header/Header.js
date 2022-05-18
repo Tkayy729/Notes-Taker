@@ -8,7 +8,7 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import { logout } from "../../actions/userActions";
 
@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="/"> Note Taker</Navbar.Brand>
+        <Navbar.Brand href={ userInfo ? "/notes" : "/"}> Note Taker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="m-auto">
@@ -42,7 +42,7 @@ const Header = () => {
           <Nav>
             {userInfo ? (
               <>
-                <Nav.Link to="/note">My Notes</Nav.Link>
+                <Nav.Link href="/notes">My Notes</Nav.Link>
                 <NavDropdown
                   title={`${userInfo.name}`}
                   id="collasible-nav-dropdown"
